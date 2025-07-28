@@ -1,0 +1,164 @@
+
+
+✅ FINAL REPLIT MVP PROMPT
+
+I want to build a full-stack internal training platform for my startup using Next.js + Tailwind CSS, with no backend or database. It should run entirely on Replit and use localStorage for progress and login session.
+
+⸻
+
+🔐 LOGIN PAGE (/)
+	•	Use hardcoded credentials, stored in users.ts:
+
+export const users = [
+  {
+    email: "yuvraj.kumar@steampro.in",
+    password: "12345",
+    department: "sales"
+  },
+  {
+    email: "rahul.sharma@steampro.in",
+    password: "abcd1234",
+    department: "ops"
+  },
+  {
+    email: "anita.verma@steampro.in",
+    password: "pass5678",
+    department: "marketing"
+  }
+];
+
+	•	On successful login:
+	•	Save user object to localStorage
+	•	Redirect to /dashboard
+
+⸻
+
+📊 DASHBOARD PAGE (/dashboard)
+	•	Show 3 training tracks:
+	1.	Core Training
+	2.	Departmental Training (based on user’s department)
+	3.	HR Training
+	•	Load all training content from trainingData.ts
+	•	Display progress and lock/unlock modules accordingly
+	•	Store all progress in localStorage
+
+⸻
+
+🗂️ CONTENT STRUCTURE (trainingData.ts)
+
+Create a data file like this:
+
+export const trainingData = {
+  core: [
+    {
+      id: "core-1",
+      title: "Welcome to SteamPRO",
+      videoUrl: "https://www.youtube.com/embed/abc123",
+      transcript: "Welcome to SteamPRO! We're a bath-tech startup...",
+      readingMaterial: "<h2>About SteamPRO</h2><p>We launched in 2020...</p>",
+      quiz: [
+        {
+          question: "When was SteamPRO founded?",
+          choices: ["2018", "2020", "2022"],
+          correctAnswer: "2020"
+        },
+        ...
+      ]
+    },
+    ...
+  ],
+  departmental: {
+    sales: [...],
+    ops: [...],
+    marketing: [...],
+    finance: [...],
+    manufacturing: [...]
+  },
+  hr: [...]
+};
+
+You should be able to add or update training content just by editing this file.
+
+⸻
+
+📘 MODULE PAGE (/module/[id])
+	•	Load dynamically based on id
+	•	Each module has 3 parts in a single scroll page:
+
+1. 🎥 Video Section
+	•	Embed unlisted YouTube video using ReactPlayer
+	•	Disable skip (no seeking)
+	•	Track watched time
+	•	Unlock next section only after 100% watched
+
+2. 📖 Reading Material
+	•	Display rich HTML content (loaded from trainingData.ts)
+	•	Appears only after video is watched completely
+
+3. ✅ Quiz
+	•	Multiple-choice quiz (at least 3 questions)
+	•	Appears after reading material is visible
+	•	Must get 100% to complete the module
+	•	Allow retries with feedback
+
+Store progress in localStorage after quiz completion.
+
+⸻
+
+🎓 CERTIFICATE PAGE (/certificate)
+	•	Show when all Core, Departmental, and HR modules are completed
+	•	Generate a PDF certificate using html2pdf.js or jspdf
+	•	Include:
+	•	User Name
+	•	Department
+	•	Date
+	•	SteamPRO logo
+	•	Founder’s signature image
+
+⸻
+
+📤 REFLECTION PAGE (/reflection)
+	•	Final step after certificate
+	•	Show instructions:
+“Record a 5-minute video summarizing what you learned during Core, Departmental, and HR training. Mention how you’ll apply it at work.”
+	•	Embed Google Form inside an iframe
+	•	Include fields: Name, Email, Department, File Upload (video)
+
+⸻
+
+🎨 UI & STYLE REQUIREMENTS
+	•	Use Tailwind CSS
+	•	Font: Montserrat
+	•	Custom color palette:
+	•	#121927 (Dark)
+	•	#13325A (Primary Blue)
+	•	Layout should be:
+	•	Clean, corporate look
+	•	Responsive and mobile-friendly
+	•	Use progress indicators like “Step 1 of 3”
+
+⸻
+
+✅ TECH STACK SUMMARY
+
+Feature	Tech/Tool
+Framework	Next.js
+Styling	Tailwind CSS
+Font	Montserrat (Google Fonts)
+Auth	Hardcoded via users.ts
+Content	Modular via trainingData.ts
+State	localStorage only
+Video Player	ReactPlayer + YouTube (unlisted)
+Certificate	html2pdf.js or jspdf
+Hosting	Replit Web App
+
+
+⸻
+
+✅ Additional Requirements
+	•	Modules must flow in order: Video → Reading → Quiz
+	•	Disable fast-forwarding video
+	•	Quiz & reading appear only after video watched fully
+	•	Must get 100% on quiz to unlock next module
+	•	All content editable from data files only — no code changes needed to update videos, reading, or quizzes
+

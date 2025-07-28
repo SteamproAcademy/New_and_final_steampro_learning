@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: steampro-training-platform
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: steampro-db
+          property: connectionString
+    
+databases:
+  - name: steampro-db
+    databaseName: steampro_training
+    user: steampro_user
